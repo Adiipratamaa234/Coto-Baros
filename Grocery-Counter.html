@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Belanja CMB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tfoot td {
+            font-weight: bold;
+            background-color: #f4f4f4;
+        }
+        select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table id="priceTable">
+        <thead>
+            <tr>
+                <th>Checklist</th>
+                <th>Nama Barang</th>
+                <th>Harga Satuan</th>
+                <th>Jumlah</th>
+                <th>Harga (Rp)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                // Data Barang
+                const dataBarang = [
+                    { nama: "Daging", harga: 120000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Jantung", harga: 80000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Hati", harga: 60000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Usus", harga: 60000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Santan", harga: 20000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Garam", harga: 2000, satuan: "pcs", jumlah: [1, 2, 3, 4, 5] },
+                    { nama: "MSG", harga: 5000, satuan: "pcs", jumlah: [1, 2, 3, 4, 5] },
+                    { nama: "Kacang", harga: 30000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Jeruk", harga: 32000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Cabe Rawit", harga: 60000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Tauco", harga: 5000, satuan: "pcs", jumlah: [1, 2, 3, 4, 5] },
+                    { nama: "Kecap", harga: 23000, satuan: "pcs", jumlah: [1, 2] },
+                    { nama: "Sereh", harga: 10000, satuan: "kg", jumlah: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000] },
+                    { nama: "Lengkuas", harga: 20000, satuan: "kg", jumlah: [1000, 2000, 3000] },
+                    { nama: "Bawang Putih", harga: 40000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Bawang Merah", harga: 44000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Bawang Daun", harga: 20000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Minyak Goreng", harga: 20000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000] },
+                    { nama: "Beras", harga: 15000, satuan: "kg", jumlah: [250, 500, 750, 1000, 1500, 2000, 2500, 3000] },
+                    { nama: "Gas LPG", harga: 22000, satuan: "tabung", jumlah: [1, 2] },
+                    { nama: "Gojek", harga: 11000, satuan: "trip", jumlah: [1, 2] },
+                    { nama: "Angkot", harga: 5000, satuan: "trip", jumlah: [1, 2] },
+                    { nama: "Bensin", harga: 10000, satuan: "liter", jumlah: [1, 2] },
+                    { nama: "Parkir", harga: 2000, satuan: "unit", jumlah: [1, 2] },
+                ];
+
+                function renderTable() {
+                    const tbody = document.querySelector("tbody");
+                    dataBarang.forEach((barang, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td><input type="checkbox" onchange="updateHarga(${index})"></td>
+                            <td>${barang.nama}</td>
+                            <td>${barang.harga.toLocaleString()} /${barang.satuan}</td>
+                            <td>
+                                <select onchange="updateHarga(${index})" id="jumlah${index}">
+                                    <option value="" disabled selected>Pilih Jumlah</option>
+                                    ${barang.jumlah.map(j => `<option value="${j}">${barang.satuan === "kg" ? (j >= 1000 ? j / 1000 + " kg" : j + " g") : j}</option>`).join("")}
+                                </select>
+                            </td>
+                            <td id="harga${index}"></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+
+                function updateHarga(index) {
+                    const checkbox = document.querySelectorAll("input[type='checkbox']")[index];
+                    const jumlah = document.querySelector(`#jumlah${index}`).value;
+                    const hargaCell = document.querySelector(`#harga${index}`);
+                    if (checkbox.checked && jumlah) {
+                        const barang = dataBarang[index];
+                        let totalHarga = barang.satuan === "kg" ? (barang.harga / 1000) * jumlah : barang.harga * jumlah;
+                        hargaCell.textContent = (Math.round(totalHarga / 1000) * 1000).toLocaleString();
+                    } else {
+                        hargaCell.textContent = "";
+                    }
+                    updateTotalBelanja();
+                }
+
+                function updateTotalBelanja() {
+                    let total = 0;
+                    document.querySelectorAll("tbody td[id^='harga']").forEach(cell => {
+                        if (cell.textContent) {
+                            total += parseInt(cell.textContent.replace(/,/g, ""));
+                        }
+                    });
+                    document.querySelector("#totalBelanja").textContent = total.toLocaleString() + ".000";
+                }
+
+                window.onload = renderTable;
+            </script>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total Belanja</td>
+                <td id="totalBelanja">0.000</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
