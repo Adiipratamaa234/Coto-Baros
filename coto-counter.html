@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Pendapatan Coto Makassar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-box {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(1);
+        }
+
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Penghitung Pendapatan Coto Makassar</h1>
+    <div class="form-box">
+        <form id="calculatorForm">
+            <label for="porsiCoto">Porsi Coto Makassar (1-100)</label>
+            <input type="number" id="porsiCoto" min="1" max="100" placeholder="Masukkan jumlah porsi Coto" required>
+            
+            <label for="porsiKetupat">Porsi Ketupat (1-100)</label>
+            <input type="number" id="porsiKetupat" min="1" max="100" placeholder="Masukkan jumlah porsi Ketupat" required>
+
+            <label>Pengeluaran 1</label>
+            <input type="number" id="pengeluaran1" placeholder="Masukkan jumlah pengeluaran">
+            
+            <label>Pengeluaran 2</label>
+            <input type="number" id="pengeluaran2" placeholder="Masukkan jumlah pengeluaran">
+            
+            <label>Pengeluaran 3</label>
+            <input type="number" id="pengeluaran3" placeholder="Masukkan jumlah pengeluaran">
+            
+            <label>Pengeluaran 4</label>
+            <input type="number" id="pengeluaran4" placeholder="Masukkan jumlah pengeluaran">
+            
+            <label>Pengeluaran 5</label>
+            <input type="number" id="pengeluaran5" placeholder="Masukkan jumlah pengeluaran">
+            
+            <label>Pengeluaran 6</label>
+            <input type="number" id="pengeluaran6" placeholder="Masukkan jumlah pengeluaran">
+            
+            <button type="button" onclick="calculate()">Hitung</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const hargaCoto = 30000; // Harga per porsi Coto
+            const hargaKetupat = 2500; // Harga per porsi Ketupat
+
+            // Ambil nilai porsi
+            const porsiCoto = parseInt(document.getElementById('porsiCoto').value) || 0;
+            const porsiKetupat = parseInt(document.getElementById('porsiKetupat').value) || 0;
+
+            // Ambil nilai pengeluaran
+            const pengeluaran1 = parseInt(document.getElementById('pengeluaran1').value) || 0;
+            const pengeluaran2 = parseInt(document.getElementById('pengeluaran2').value) || 0;
+            const pengeluaran3 = parseInt(document.getElementById('pengeluaran3').value) || 0;
+            const pengeluaran4 = parseInt(document.getElementById('pengeluaran4').value) || 0;
+            const pengeluaran5 = parseInt(document.getElementById('pengeluaran5').value) || 0;
+            const pengeluaran6 = parseInt(document.getElementById('pengeluaran6').value) || 0;
+
+            // Hitung total pendapatan dan pengeluaran
+            const totalPendapatanCoto = porsiCoto * hargaCoto;
+            const totalPendapatanKetupat = porsiKetupat * hargaKetupat;
+            const totalPendapatan = totalPendapatanCoto + totalPendapatanKetupat;
+            const totalPengeluaran = pengeluaran1 + pengeluaran2 + pengeluaran3 + pengeluaran4 + pengeluaran5 + pengeluaran6;
+
+            // Hasil akhir
+            const hasil = totalPendapatan - totalPengeluaran;
+
+            // Tampilkan hasil
+            const resultDiv = document.getElementById('result');
+            if (porsiCoto > 0 || porsiKetupat > 0) {
+                resultDiv.textContent = `Pendapatan Bersih: Rp ${hasil.toLocaleString('id-ID')}`;
+            } else {
+                resultDiv.textContent = 'Silakan masukkan jumlah porsi yang valid!';
+            }
+        }
+    </script>
+</body>
+</html>

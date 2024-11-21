@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Datang</title>
+    <style>
+        /* Gaya dasar */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .typing-container {
+            position: relative;
+            width: 90%; /* Lebih fleksibel untuk perangkat kecil */
+            max-width: 600px;
+            margin: 10px auto;
+            font-size: 18px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
+
+        .typing-line {
+            display: none;
+            animation: typing 1.5s steps(50, end) forwards, fadeIn 1.5s;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer {
+            font-size: 12px;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%; /* Lebih fleksibel untuk layar kecil */
+            max-width: 300px;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%; /* Lebih fleksibel untuk layar kecil */
+            max-width: 320px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        /* Media Query untuk perangkat kecil */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px; /* Ubah ukuran heading di layar kecil */
+            }
+            .typing-container {
+                font-size: 16px; /* Teks lebih kecil untuk layar kecil */
+            }
+            footer {
+                font-size: 10px; /* Footer lebih kecil */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>SELAMAT DATANG</h1>
+    <div class="typing-container" id="typingContainer">
+        <p class="typing-line">Selamat datang di website khusus karyawan Coto Makassar - Carwash. Website ini dibuat untuk memudahkan pekerjaan para karyawan kami yang rajin, baik dan tidak sombong</p>
+    </div>
+    <footer>
+        untuk melanjutkan ke halaman utama, silahkan masuk terlebih dahulu
+    </footer>
+    <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Masukkan username">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Masukkan password">
+        <button type="button" onclick="validateLogin()">Masuk</button>
+        <p id="errorMessage" class="error"></p>
+    </form>
+
+    <script>
+        // Daftar username yang valid
+        const validUsernames = [
+            "Muhammad Irfan", "muhammad irfan", "Irfan", "irfan",
+            "Inyong", "inyong", "Nyong", "nyong",
+            "Susilawati", "susilawati", "Susi", "susi",
+            "Adi Pratama"
+        ];
+        const validPassword = "cotom234";
+
+        // Fungsi untuk validasi login
+        function validateLogin() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (validUsernames.includes(username) && password === validPassword) {
+                alert("Login berhasil! Anda akan diarahkan ke halaman utama.");
+                window.location.href = "main-page.html"; // Ganti "index.html" ke halaman utama Anda
+            } else {
+                document.getElementById("errorMessage").textContent = "Username atau password salah.";
+            }
+        }
+
+        // Animasi mengetik baris demi baris
+        function startTypingAnimation() {
+            const lines = document.querySelectorAll(".typing-line");
+            let index = 0;
+
+            function showNextLine() {
+                if (index < lines.length) {
+                    lines[index].style.display = "block";
+                    index++;
+                    setTimeout(showNextLine, 1500); // Durasi untuk setiap baris
+                }
+            }
+
+            showNextLine();
+        }
+
+        window.onload = startTypingAnimation;
+    </script>
+</body>
+</html>

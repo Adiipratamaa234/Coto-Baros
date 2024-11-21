@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Harga Barang</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .checkbox-cell {
+            text-align: center;
+        }
+        button {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <button id="toggleButton">Daftar Belanja 21-11-24</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Checklist</th>
+                <th>Nama Barang</th>
+                <th>Jumlah</th>
+                <th>Harga (Rp)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="240000"></td>
+                <td>Daging</td>
+                <td>2 kg</td>
+                <td>240.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="40000"></td>
+                <td>Jantung</td>
+                <td>500 g</td>
+                <td>40.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="30000"></td>
+                <td>Hati</td>
+                <td>500 g</td>
+                <td>30.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="15000"></td>
+                <td>Usus</td>
+                <td>250 g</td>
+                <td>15.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="10000"></td>
+                <td>Santan</td>
+                <td>500 g</td>
+                <td>10.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="5000"></td>
+                <td>MSG</td>
+                <td>1</td>
+                <td>5.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="15000"></td>
+                <td>Kacang</td>
+                <td>500 g</td>
+                <td>15.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="16000"></td>
+                <td>Jeruk</td>
+                <td>500 g</td>
+                <td>16.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="25000"></td>
+                <td>Cabe Rawit</td>
+                <td>500 g</td>
+                <td>25.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="8000"></td>
+                <td>Tauco</td>
+                <td>2</td>
+                <td>8.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="10000"></td>
+                <td>Bawang Daun</td>
+                <td>500 g</td>
+                <td>10.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="22000"></td>
+                <td>Gas LPG</td>
+                <td>1</td>
+                <td>22.000</td>
+            </tr>
+            <tr>
+                <td class="checkbox-cell"><input type="checkbox" data-price="22000"></td>
+                <td>Gojek</td>
+                <td>2</td>
+                <td>22.000</td>
+            </tr>
+            <tr class="total">
+                <td colspan="3">Total</td>
+                <td id="totalAmount">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // Function to format number with thousand separator
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Function to calculate total
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            let total = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.dataset.price);
+                }
+            });
+
+            document.getElementById('totalAmount').textContent = formatNumber(total);
+        }
+
+        // Add event listeners to all checkboxes
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateTotal);
+        });
+
+        // Function to toggle checked/unchecked
+        document.getElementById('toggleButton').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !checkbox.checked;
+            });
+            calculateTotal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Belanja Coto Makassar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 70%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tfoot td {
+            font-weight: bold;
+            background-color: #f4f4f4;
+        }
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Checklist</th>
+                <th>Nama Barang</th>
+                <th>Quantity</th>
+                <th>Harga (Rp)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="60000"></td>
+                <td>Daging</td>
+                <td>500 g</td>
+                <td>60.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="20000"></td>
+                <td>Jantung</td>
+                <td>250 g</td>
+                <td>20.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="15000"></td>
+                <td>Usus</td>
+                <td>250 g</td>
+                <td>15.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="10000"></td>
+                <td>Santan</td>
+                <td>500 g</td>
+                <td>10.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="15000"></td>
+                <td>Kacang</td>
+                <td>500 g</td>
+                <td>15.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="8000"></td>
+                <td>Terasi</td>
+                <td>1 Pcs</td>
+                <td>8.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="5000"></td>
+                <td>MSG</td>
+                <td>1 Pcs</td>
+                <td>5.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="15000"></td>
+                <td>Beras</td>
+                <td>1 kg</td>
+                <td>15.000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="item" data-price="20000"></td>
+                <td>Gojek PP</td>
+                <td>-</td>
+                <td>20.000</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total Belanja</td>
+                <td id="total">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        // Ambil semua checkbox dengan class "item"
+        const checkboxes = document.querySelectorAll('.item');
+        const totalCell = document.getElementById('total');
+
+        // Fungsi untuk menghitung total harga
+        function calculateTotal() {
+            let total = 0;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.getAttribute('data-price'));
+                }
+            });
+            totalCell.textContent = total.toLocaleString(); // Format angka dengan koma
+        }
+
+        // Tambahkan event listener ke setiap checkbox
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', calculateTotal);
+        });
+    </script>
+</body>
+</html>

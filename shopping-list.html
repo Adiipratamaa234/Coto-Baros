@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender November 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-box {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .calendar-box button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .calendar-box button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .calendar-box button:active {
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            .calendar-box button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>November 2024</h1>
+    <div class="calendar-box">
+        <!-- Generate calendar buttons -->
+        <script>
+            for (let day = 1; day <= 30; day++) {
+                document.write(`<button onclick="navigateTo('day-${day}.html')">${day}</button>`);
+            }
+        </script>
+    </div>
+
+    <script>
+        // Fungsi navigasi untuk tombol kalender
+        function navigateTo(fileName) {
+            window.location.href = fileName;
+        }
+    </script>
+</body>
+</html>
